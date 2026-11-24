@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIDA Tower Lamp: Pusat Simulator</title>
+<title>GIDA Tower Lamp: Simulator Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b1220;--card:#121b2d;--card2:#0e1626;--accent:#f97316;--blue:#38bdf8;--text:#f1f5f9;--muted:#8b9bb4;--border:#223049;--lamp:#ffb020;--fd:'Space Grotesk','IBM Plex Sans',sans-serif;--fb:'IBM Plex Sans','Segoe UI',sans-serif}
@@ -55,33 +55,33 @@ footer{margin-top:26px;color:var(--muted);font-size:.75rem;text-align:center}
 
 <section class="hero">
 <div class="eyebrow">Tower Lamp &amp; Light Tower</div>
-<h1>Pusat simulator <span>GIDA</span></h1>
-<p class="lead">Satu pintu untuk semua alat bantu presentasi ke customer: hitung TCO, bandingkan parts dan biaya per tahun, simulasi lux di lokasi, dan lihat jalannya satu hari operasional.</p>
-<div class="search"><input id="q" type="search" placeholder="Cari simulator (mis. lux, parts, TCO)" aria-label="Cari simulator"></div>
+<h1>GIDA <span>simulator</span> hub</h1>
+<p class="lead">One place for every customer presentation tool: calculate TCO, compare parts and yearly cost, simulate site lighting, and walk through a full day of operation.</p>
+<div class="search"><input id="q" type="search" placeholder="Search simulators (e.g. lux, parts, TCO)" aria-label="Search simulators"></div>
 </section>
 
 <main id="main"></main>
-<p class="empty" id="empty">Tidak ada simulator yang cocok dengan pencarian.</p>
+<p class="empty" id="empty">No simulator matches your search.</p>
 
-<div class="note"><b>Catatan hosting:</b> file ini memakai link relatif, jadi letakkan <b>index.html</b> satu folder dengan kelima file simulator. Untuk Export Excel di Simulator TCO, folder <b>templates/</b> tetap berada di sebelahnya. Jika nama file simulator berubah (misalnya naik versi), cukup ubah bagian <b>file</b> di daftar APPS pada akhir file ini.</div>
+
 <footer>© PT Multi Traktor Perkasa · GIDA Tower Lamp</footer>
 </div>
 
 <script>
 /* Ubah nama file di sini bila ada versi baru. */
 const GROUPS=[
- {t:"Biaya &amp; TCO",d:"Untuk menjawab: berapa hemat dan kapan balik modal dibanding diesel.",c:"#f97316",items:[
-  {n:"Simulator TCO",file:"gida_simulator_v8.html",v:"v8",ic:"chart",
-   p:"Hitung TCO dan break-even tower lamp hybrid GIDA terhadap genset diesel. Ada rekomendasi model, ROI, rincian cashflow bulanan, dan Export Excel."},
-  {n:"Parts &amp; Cash Out per Tahun",file:"gida_parts_cashout_LCC_v10.html",v:"v10",ic:"wrench",
-   p:"Unggah daftar parts per model untuk melihat kebutuhan parts dan arus kas keluar tiap tahun (life cycle cost), dengan tabel, grafik, dan ekspor."},
+ {t:"Cost &amp; TCO",d:"How much you save and when you break even versus diesel.",c:"#f97316",items:[
+  {n:"TCO Simulator",file:"gida_simulator_v8.html",v:"v8",ic:"chart",
+   p:"Calculate TCO and break-even of a GIDA hybrid tower lamp against a diesel unit. Includes model recommendation, ROI, monthly cashflow, a 2-page customer summary and Excel export."},
+  {n:"Parts &amp; Yearly Cash Out",file:"gida_parts_cashout_LCC_v10.html",v:"v10",ic:"wrench",
+   p:"Upload a parts list per model to see parts needs and cash out each year (life cycle cost), with tables, charts and export."},
   {n:"GIDA Compare",file:"gida_compare_v5.html",v:"v5",ic:"compare",
-   p:"Bandingkan beberapa model GIDA berdampingan dari daftar parts masing-masing, lengkap dengan KPI, tabel, dan grafik perbandingan."}]},
- {t:"Teknis &amp; Operasional",d:"Untuk menunjukkan kinerja di lapangan: sebaran cahaya dan pola kerja harian.",c:"#38bdf8",items:[
-  {n:"Simulator Lux",file:"gida_lux_simulator_v18.html",v:"v18",ic:"sun",
-   p:"Lihat sebaran lux tower lamp dari tampak samping dan atas, luas area per tingkat lux, dan cari beam angle terbaik untuk area kerja."},
+   p:"Compare GIDA models side by side from their parts lists, with KPIs, tables and comparison charts."}]},
+ {t:"Technical &amp; Operations",d:"How the lamp performs on site: light spread and daily operating pattern.",c:"#38bdf8",items:[
+  {n:"Lux Simulator",file:"gida_lux_simulator_v18.html",v:"v18",ic:"sun",
+   p:"See the lux spread of a tower lamp from the side and from above, area per lux level, and find the best beam angle for a work area."},
   {n:"Operational Day Simulator",file:"gida_operational_day_simulator_v7.html",v:"v7",ic:"clock",
-   p:"Simulasi satu hari operasional 24 jam: kapan lampu, genset, dan panel surya bekerja untuk tiap tipe GD9-M, GDQ9-M, GD7-H, GD9-H, dan GD12-H."}]}
+   p:"Simulate a full 24-hour operating day: when the lamp, genset and solar panels work, for each of GD9-M, GDQ9-M, GD7-H, GD9-H and GD12-H."}]}
 ];
 const ICONS={
  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
@@ -96,7 +96,7 @@ main.innerHTML=GROUPS.map(g=>`<section class="group" data-g>
 <div class="cards">${g.items.map(i=>`<a class="card" style="--c:${g.c}" href="${i.file}" data-s="${(i.n+' '+i.p).toLowerCase().replace(/&amp;/g,'&')}">
 <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[i.ic]}</svg></div>
 <h3>${i.n}</h3><p>${i.p}</p>
-<div class="meta"><span class="ver">${i.v}</span><span class="go">Buka →</span></div></a>`).join('')}</div></section>`).join('');
+<div class="meta"><span></span><span class="go">Open →</span></div></a>`).join('')}</div></section>`).join('');
 const q=document.getElementById('q'),empty=document.getElementById('empty');
 q.addEventListener('input',()=>{
  const k=q.value.trim().toLowerCase();let any=false;
