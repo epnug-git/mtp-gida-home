@@ -82,6 +82,7 @@ th.ha{background:#1c6f99}th.hb{background:#b3541a}
 <div><label data-u="l_s1"></label><input id="sStart" type="number" min="0" max="23" value="18"></div>
 <div><label data-u="l_s2"></label><input id="nHours" type="number" min="1" max="24" step="0.5" value="12"></div>
 <div><label data-u="l_fuel"></label><input id="fuel" type="number" value="22000" step="500"></div>
+<div><label data-u="l_glph"></label><input id="glph" type="number" value="1" min="0.1" max="20" step="0.05"></div>
 <div><label data-u="l_inv"></label><input id="inv" type="number" value="92" min="70" max="100"></div>
 <div><label data-u="l_deg"></label><select id="degr"><option value="1" data-u="o_on"></option><option value="0" data-u="o_off"></option></select></div>
 </div>
@@ -132,7 +133,8 @@ const WEATHER = [
   { id: 'cerah', psh: 4.5 }
 ];
 const DEG_TABLE = { 50: 0.012, 55: 0.014, 60: 0.016, 65: 0.018, 70: 0.021, 75: 0.025, 80: 0.028, 85: 0.032, 90: 0.037, 95: 0.041, 100: 0.045 };
-const FUEL_LPH = 16 / 12;      // liter per jam genset menyala
+const FUEL_LPH = 1;            // default liter per jam genset 5 kW; bisa diubah lewat input di layar (p.gensetLph)
+function gLph(p) { return (p && p.gensetLph > 0) ? p.gensetLph : FUEL_LPH; }
 const GEN_RATED_W = 5000;     // daya genset (W)
 const INV_RATED_W = 3600;     // daya inverter (W)
 const DT = 1 / 12;             // langkah 5 menit (jam)
@@ -380,7 +382,7 @@ const D = {
   a_capex: ['Harga unit {m} (capex)', '{m} unit price (capex)', 'Precio de la unidad {m} (capex)', '{m} 设备价格（资本支出）'],
   a_capexnote: ['Dibayar di awal. Belum termasuk PPN, ongkir, pembiayaan.', 'Paid upfront. Excludes VAT, freight and financing.', 'Se paga al inicio. No incluye IVA, flete ni financiamiento.', '前期支付。不含增值税、运费和融资成本。'],
   a_cons: ['Konsumsi genset', 'Genset fuel consumption', 'Consumo del generador', '发电机油耗'],
-  a_consnote: ['16 L per 12 jam, tetap berapa pun beban', '16 L per 12 hours, fixed regardless of load', '16 L por 12 horas, fijo sin importar la carga', '每 12 小时 16 升，与负载无关'],
+  a_consnote: ['Input manual; dianggap tetap berapa pun beban', 'Manual input; treated as fixed regardless of load', 'Entrada manual; se asume fija sin importar la carga', '手动输入；视为与负载无关'],
   u_hr: ['jam', 'hours', 'horas', '小时'],
   u_hpy: ['jam/tahun', 'hours/year', 'horas/año', '小时/年'],
   u_rpl: ['Rp/liter', 'Rp/liter', 'Rp/litro', 'Rp/升'],
@@ -491,6 +493,7 @@ const D = {
   l_s2: ['Jam lampu per malam', 'Lamp hours per night', 'Horas de lámpara por noche', '每晚灯时'],
   l_capex: ['Harga unit / capex (Rp)', 'Unit price / capex (Rp)', 'Precio de la unidad / capex (Rp)', '设备价格 / 资本支出 (Rp)'],
   l_fuel: ['Harga solar (Rp/L)', 'Diesel price (Rp/L)', 'Precio del diésel (Rp/L)', '柴油价格 (Rp/升)'],
+  l_glph: ['Konsumsi BBM genset 5 kW (L/jam)', 'Genset 5 kW fuel consumption (L/h)', 'Consumo del generador 5 kW (L/h)', '发电机 5 kW 耗油量 (升/小时)'],
   l_inv: ['Efisiensi inverter (%)', 'Inverter efficiency (%)', 'Eficiencia del inversor (%)', '逆变器效率 (%)'],
   l_deg: ['Degradasi baterai', 'Battery degradation', 'Degradación de la batería', '电池衰减'],
   o_degon: ['Aktif (sesuai DOD)', 'On (per DOD)', 'Activa (según DOD)', '开启（按 DOD）'],
@@ -715,7 +718,7 @@ function compute(parts, p) {
   const sim = runEngine(Object.assign({}, p, { nights, off: 6, sunrise: 6, sunset: 18, soc0: 100 }));
   const buckets = bucketize(sim, p.projectHours, p.hoursPerYear);
   const co = cashOut(parts, buckets, { sim, p });
-  const bbmL = buckets.map(b => b.genPeriod * FUEL_LPH);
+  const bbmL = buckets.map(b => b.genPeriod * gLph(p));
   const bbmRp = bbmL.map(l => l * p.fuelPrice);
   const total = buckets.map((b, i) => co.partsTot[i] + bbmRp[i]);
   return { sim, buckets, co, bbmL, bbmRp, total };
@@ -743,7 +746,7 @@ function cumulative(parts, res, p, nPts) {
   }
   nPts = nPts || 240;
   const xs = []; for (let i = 0; i <= nPts; i++) xs.push(H * i / nPts);
-  const series = [{ name: '__bbm', vals: xs.map(h => genAt(h) * FUEL_LPH * p.fuelPrice) }];
+  const series = [{ name: '__bbm', vals: xs.map(h => genAt(h) * gLph(p) * p.fuelPrice) }];
   Object.keys(events).forEach(k => {
     const ev = events[k].slice().sort((a, b) => a[0] - b[0]);
     let j = 0, acc = 0;
@@ -815,7 +818,7 @@ function buildWorkbook(ExcelJS, ctx) {
   wRow(24, t('a_fuel'), p.fuelPrice, t('u_rpl'), '', BLUE, RP);
   wRow(25, t('a_partsrc'), t('a_partsrcv'), '', '', f());
   wRow(26, t('a_capex', { m: p.model }), p.capex, 'Rp', t('a_capexnote'), BLUE, RP);
-  wRow(27, t('a_cons'), F('16/12', FUEL_LPH), t('u_lph'), t('a_consnote'), f(), '0.000');
+  wRow(27, t('a_cons'), gLph(p), t('u_lph'), t('a_consnote'), BLUE, '0.000');
   wsA.columns = [{ width: 36 }, { width: 28 }, { width: 12 }, { width: 70 }];
 
   /* ----- BBM / Fuel ----- */
@@ -1051,7 +1054,7 @@ function buildTemplate(ExcelJS, lang) {
   return wb;
 }
 
-const api = { GEN_RATED_W, INV_RATED_W, cumulative, SPECS, WEATHER, LANGS, FUEL_LPH, HEADERS, tr, degPerYear, runEngine, bucketize, parsePartsRows, cashOut, compute, buildWorkbook, buildTemplate, toNum, r9 };
+const api = { GEN_RATED_W, INV_RATED_W, cumulative, SPECS, WEATHER, LANGS, FUEL_LPH, gLph, HEADERS, tr, degPerYear, runEngine, bucketize, parsePartsRows, cashOut, compute, buildWorkbook, buildTemplate, toNum, r9 };
 if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.GIDA = api;
 })(typeof window !== 'undefined' ? window : globalThis);
 
@@ -1067,7 +1070,7 @@ const UD={
  l_lamp:['Total watt lampu (W)','Total lamp watt (W)'],l_batov:['Kapasitas baterai (Wh, 0 = standar model)','Battery capacity (Wh, 0 = model standard)'],l_ph:['Horizon: jam lampu menyala','Horizon: lamp-on hours'],l_weather:['Cuaca (PSH)','Weather (PSH)'],
  l_dod:['DOD (%)','DOD (%)'],l_gmode:['Genset berhenti di','Genset stops at'],l_gpct:['Genset mati di SOC (%)','Genset stops at SOC (%)'],l_gpath:['Jalur daya genset','Genset power path'],
  l_pre:['Precharge siang','Daytime precharge'],l_bal:['Balancing tiap N hari (0 = off)','Balancing every N days (0 = off)'],l_wdays:['Hari kerja per tahun','Working days per year'],
- l_s1:['Lampu mulai jam','Lamp on at hour'],l_s2:['Jam lampu menyala per malam','Lamp hours per night'],l_fuel:['Harga solar (Rp/L)','Diesel price (Rp/L)'],l_inv:['Efisiensi inverter (%)','Inverter efficiency (%)'],l_deg:['Degradasi baterai','Battery degradation'],
+ l_s1:['Lampu mulai jam','Lamp on at hour'],l_s2:['Jam lampu menyala per malam','Lamp hours per night'],l_fuel:['Harga solar (Rp/L)','Diesel price (Rp/L)'],l_glph:['Konsumsi BBM genset 5 kW (L/jam)','Genset 5 kW fuel consumption (L/h)'],l_inv:['Efisiensi inverter (%)','Inverter efficiency (%)'],l_deg:['Degradasi baterai','Battery degradation'],
  o_pct:['SOC custom %','Custom SOC %'],o_full:['Full 100%','Full 100%'],o_cont:['Jalan terus sampai shift selesai','Run until shift ends'],o_ginv:['Semua via inverter','All via inverter'],o_gbyp:['Bypass','Bypass'],o_on:['Aktif','On'],o_off:['Mati','Off'],
  w_gelap:['Gelap gulita / badai (PSH 0)','Dark / storm (PSH 0)'],w_mendung:['Mendung / hujan (PSH 1,5)','Overcast / rain (PSH 1.5)'],w_berawan:['Berawan sebagian (PSH 3,0)','Partly cloudy (PSH 3.0)'],w_cerah:['Cerah (PSH 4,5)','Sunny (PSH 4.5)'],
  h_a:['Model A','Model A'],h_b:['Model B','Model B'],l_model:['Model','Model'],l_capex:['Harga unit / capex (Rp)','Unit price / capex (Rp)'],
@@ -1129,6 +1132,9 @@ function applyLang(){
   SIDES.forEach(s=>{if(ST[s]&&ST[s].res)showMsgs(s)});
   if(LAST)render();
 }
+/* konsumsi genset dibagikan antar app GIDA lewat localStorage */
+try{const gv=parseFloat(localStorage.getItem('gidaGensetLph'));if(gv>0&&gv<=20)$('glph').value=gv}catch(e){}
+$('glph').addEventListener('input',()=>{try{const v=parseFloat($('glph').value);if(v>0&&v<=20)localStorage.setItem('gidaGensetLph',String(v))}catch(e){}});
 $('lang').onchange=()=>{LANG=$('lang').value;try{localStorage.setItem('gida_lang',LANG)}catch(e){};applyLang()};
 
 function showMsgs(s){
@@ -1174,7 +1180,7 @@ function params(s){
     preHour:15,preOn:$('pre').value==='1',chEff:90,pvEff:80,invEff:+$('inv').value,bal:+$('bal').value||0,gMode:$('gmode').value,gPath:$('gpath').value,gPct:+$('gpct').value,
     degr:$('degr').value==='1',degPerYear:GIDA.degPerYear(dod),workDays:+$('wdays').value,hoursPerYear:+$('wdays').value*shiftOf(),projectHours:+$('ph').value,
     batOvr:Math.max(0,+$('b'+s).value||0),
-    fuelPrice:+$('fuel').value,capex:(cx!==''&&+cx>=0?+cx:GIDA.SPECS[m].price)};
+    fuelPrice:+$('fuel').value,gensetLph:(+$('glph').value>0?+$('glph').value:GIDA.FUEL_LPH),capex:(cx!==''&&+cx>=0?+cx:GIDA.SPECS[m].price)};
 }
 function totalsCurve(parts,res,p,n){
   const cu=GIDA.cumulative(parts,res,p,n);
@@ -1335,7 +1341,7 @@ function buildCompareWorkbook(){
   row(18,U('l_wdays'),p.workDays,BLUE,'0');
   row(19,U('l_inv'),p.invEff/100,BLUE,'0%');
   row(20,U('l_deg'),p.degr?U('o_on'):U('o_off'),BLUE);
-  row(21,lang==='id'?'Konsumsi genset (L/jam)':'Genset fuel burn (L/h)',GIDA.FUEL_LPH,BLUE,'0.000','L/h');
+  row(21,lang==='id'?'Konsumsi genset (L/jam)':'Genset fuel burn (L/h)',GIDA.gLph(p),BLUE,'0.000','L/h');
   wsS.columns=[{width:34},{width:22},{width:70}];
   /* --- Parts sheets --- */
   const partsSheet=(ws,L_,title)=>{
