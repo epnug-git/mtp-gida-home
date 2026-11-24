@@ -492,6 +492,11 @@
             </div>
 
             <div class="form-group">
+                <label for="gensetLph" data-i18n="l_genset_lph">GIDA Genset (5 kW) Fuel Consumption (L/hr)</label>
+                <input type="number" id="gensetLph" value="1" min="0.1" step="0.05" oninput="saveGensetLph()">
+            </div>
+
+            <div class="form-group">
                 <label for="opYears" data-i18n="l_years">Project Evaluation Duration (Years)</label>
                 <select id="opYears">
                     <option value="1" data-i18n="opt_y1">1 Year</option>
@@ -835,7 +840,7 @@
             l_dod: "Depth of Discharge (DOD)", l_dod_note: "*Backup Genset auto-starts when battery SOC drops to ",
             l_weather: "Majority Weather Condition", opt_dark: "Pitch Dark / Storm (0 PSH)", opt_rain: "100% Cloudy / Rainy (1.5 PSH)", opt_cloudy: "50% Overcast (3.0 PSH)", opt_sunny: "100% Sunny / Dry Season (4.5 PSH)",
             l_compare: "Diesel Baseline Comparison Mode", opt_new_diesel: "Purchase New Diesel Unit", opt_old_diesel: "Use Existing Diesel Unit (CAPEX: 0 / Sunk Cost)",
-            l_diesel_rate: "Diesel Baseline Fuel Consumption (L/hr)",
+            l_diesel_rate: "Diesel Baseline Fuel Consumption (L/hr)", l_genset_lph: "GIDA Genset (5 kW) Fuel Consumption (L/hr)",
             l_diesel_capex: "Baseline Diesel CAPEX Price ",
             l_years: "Project Evaluation Duration (Years)", opt_y1: "1 Year", opt_y2: "2 Years", opt_y3: "3 Years", opt_y4: "4 Years", opt_y5: "5 Years",
             l_gmode: "Night Genset Behaviour (after auto-start)", l_gpct: "Genset stops at SOC (%)", l_gmode_note: "*While the genset runs, the battery is charged (how the lamp is fed depends on the Genset Power Path setting). When it stops, the lamp runs from the battery again (battery energy is refilled free by PV the next day). Confirm the real genset controller logic with the vendor.",
@@ -902,7 +907,7 @@
             l_dod: "Depth of Discharge (DOD)", l_dod_note: "*Genset otomatis menyala saat baterai (SOC) turun ke ",
             l_weather: "Kondisi Cuaca Mayoritas", opt_dark: "Gelap Gulita / Badai (0 PSH)", opt_rain: "100% Hujan / Mendung (1.5 PSH)", opt_cloudy: "50% Berawan (3.0 PSH)", opt_sunny: "100% Cerah / Kemarau (4.5 PSH)",
             l_compare: "Mode Komparasi Diesel Baseline", opt_new_diesel: "Beli Unit Diesel Baru", opt_old_diesel: "Pakai Unit Diesel Lama (CAPEX: 0 / Sunk Cost)",
-            l_diesel_rate: "Konsumsi BBM Baseline Diesel (L/jam)",
+            l_diesel_rate: "Konsumsi BBM Baseline Diesel (L/jam)", l_genset_lph: "Konsumsi BBM Genset GIDA 5 kW (L/jam)",
             l_diesel_capex: "Harga CAPEX Diesel Baseline ",
             l_years: "Durasi Evaluasi Proyek (Tahun)", opt_y1: "1 Tahun", opt_y2: "2 Tahun", opt_y3: "3 Tahun", opt_y4: "4 Tahun", opt_y5: "5 Tahun",
             l_gmode: "Perilaku Genset Malam (setelah auto-start)", l_gpct: "Genset mati di SOC (%)", l_gmode_note: "*Saat genset hidup, baterai diisi (cara lampu disuplai mengikuti pilihan Jalur Daya Genset). Saat genset mati, lampu kembali dari baterai (energi baterai diisi ulang gratis oleh PV esok hari). Konfirmasikan logika kontroler genset yang sebenarnya ke vendor.",
@@ -969,7 +974,7 @@
             l_dod: "放电深度 (DOD)", l_dod_note: "*当电池剩余电量(SOC)降至以下时发电机启动：",
             l_weather: "主要天气状况", opt_dark: "极端阴暗/暴风雨 (0 PSH)", opt_rain: "100% 阴雨天气 (1.5 PSH)", opt_cloudy: "50% 多云 (3.0 PSH)", opt_sunny: "100% 晴朗/旱季 (4.5 PSH)",
             l_compare: "柴油基准对比模式", opt_new_diesel: "购买新柴油机", opt_old_diesel: "使用现有柴油机 (CAPEX: 0 / 沉没成本)",
-            l_diesel_rate: "柴油基准耗油量 (升/小时)",
+            l_diesel_rate: "柴油基准耗油量 (升/小时)", l_genset_lph: "GIDA 发电机 (5 kW) 耗油量 (升/小时)",
             l_diesel_capex: "基准柴油机 CAPEX 价格 ",
             l_years: "项目评估周期 (年)", opt_y1: "1 年", opt_y2: "2 年", opt_y3: "3 年", opt_y4: "4 年", opt_y5: "5 年",
             l_gmode: "夜间发电机运行方式（自动启动后）", l_gpct: "发电机停机SOC (%)", l_gmode_note: "*发电机运行时给电池充电（灯具如何供电取决于“发电机供电路径”设置）。停机后灯具由电池供电（电池能量次日由光伏免费补充）。请向供应商确认发电机控制器的实际逻辑。",
@@ -1036,7 +1041,7 @@
             l_dod: "Profundidad de Descarga (DOD)", l_dod_note: "*El generador arranca cuando el SOC cae al ",
             l_weather: "Clima Mayoritario", opt_dark: "Oscuridad Total / Tormenta (0 PSH)", opt_rain: "100% Lluvia (1.5 PSH)", opt_cloudy: "50% Nublado (3.0 PSH)", opt_sunny: "100% Soleado (4.5 PSH)",
             l_compare: "Modo de Comparación Diésel", opt_new_diesel: "Comprar Nuevo Diésel", opt_old_diesel: "Usar Diésel Existente (CAPEX: 0)",
-            l_diesel_rate: "Consumo de Combustible Diésel Base (L/h)",
+            l_diesel_rate: "Consumo de Combustible Diésel Base (L/h)", l_genset_lph: "Consumo del Generador GIDA 5 kW (L/h)",
             l_diesel_capex: "Precio CAPEX Diésel Base ",
             l_years: "Duración del Proyecto (Años)", opt_y1: "1 Año", opt_y2: "2 Años", opt_y3: "3 Años", opt_y4: "4 Años", opt_y5: "5 Años",
             l_gmode: "Comportamiento del Generador Nocturno (tras arranque automático)", l_gpct: "El generador se detiene en SOC (%)", l_gmode_note: "*Mientras el generador funciona, la batería se carga (cómo se alimenta la lámpara depende de la Ruta de Energía del Generador). Al detenerse, la lámpara vuelve a funcionar con la batería (la energía se repone gratis con PV al día siguiente). Confirme con el proveedor la lógica real del controlador.",
@@ -1085,7 +1090,17 @@
     };
 
     let currentLang = 'en';
-    const hybridFuelConsRate = 16.0 / 12.0; 
+    /* Konsumsi BBM genset 5 kW (L/jam). Default 1. Nilai disimpan di browser dan dipakai bersama oleh app GIDA lain di domain yang sama. */
+    const GENSET_LPH_KEY = 'gidaGensetLph', GENSET_LPH_DEFAULT = 1;
+    function getGensetLph() {
+        const el = document.getElementById('gensetLph');
+        const v = el ? parseFloat(el.value) : NaN;
+        return (v > 0 && v <= 20) ? v : GENSET_LPH_DEFAULT;
+    }
+    function saveGensetLph() { try { localStorage.setItem(GENSET_LPH_KEY, String(getGensetLph())); } catch (e) {} }
+    function restoreGensetLph() {
+        try { const v = parseFloat(localStorage.getItem(GENSET_LPH_KEY)); const el = document.getElementById('gensetLph'); if (el && v > 0 && v <= 20) el.value = v; } catch (e) {}
+    }
     function getNightHours() {
         const el = document.getElementById('nightHours');
         const v = el ? parseFloat(el.value) : NaN;
@@ -1407,7 +1422,7 @@
         // the lamp is always fed from the battery through the inverter (see nightGensetCalc).
         const daytimeChargerRate = chargerPower * chargerEff;
         const netChargeCoefficient = chargerPower * chargerEff;
-        const hybridFuelConsRate = 16.0 / 12.0;
+        const hybridFuelConsRate = getGensetLph();
 
         const restDaysPerYear = 365 - workingDaysPerYear;
         const restInterval = restDaysPerYear > 0 ? Math.round(365 / restDaysPerYear) : 0;
@@ -1610,6 +1625,7 @@
         const compMode = document.getElementById('comparisonMode').value;
         const gidaFullPriceIDR = getEffectivePrice(specIDR);
         const dieselFuelPerHour = parseFloat(document.getElementById('dieselFuelRate').value) || 1.8;
+        const hybridFuelConsRate = getGensetLph();
 
         const dpPct = parseFloat(document.getElementById('dpPercent').value) / 100;
         const tenorYears = parseInt(document.getElementById('leaseTenor').value);
@@ -1997,7 +2013,7 @@
                 soh: sohY, sohFinalPct: finalMaxBat / initialBat * 100, finalBatWh: finalMaxBat, efc: equivalentFullCycles,
                 pvShare: _den2 > 0 ? totalPvStoredWh / _den2 : 1, avgPvKwh: totalPvStoredWh / totalDays / 1000, avgGenKwh: totalGenInWh / totalDays / 1000,
                 pvWp, batWh: initialBat, psh, dod: dodPercent, stopMode: getGensetStopMode(), stopPct: getGensetStopPct(), precharge: isPrechargeOn(),
-                balDays: balanceIntervalDays, pvEff: pvEffPct, chEff: chargerEffPct, invEff: Math.round(getInverterEff() * 100), dslLph: dieselFuelPerHour
+                balDays: balanceIntervalDays, pvEff: pvEffPct, chEff: chargerEffPct, invEff: Math.round(getInverterEff() * 100), dslLph: dieselFuelPerHour, gensetLph: hybridFuelConsRate
             };
         }
         renderDash({
@@ -2184,7 +2200,8 @@
         });
     }
 
-    window.onload = () => { 
+    window.onload = () => { restoreGensetLph();
+       
         initPalette();
         fetchLiveExchangeRates();
         triggerSimulation();
@@ -2284,7 +2301,7 @@ async function xlBuild(url,fill,fileName){
   const wbx=await zip.file('xl/workbook.xml').async('string');
   const nm={};wbx.replace(/<definedName name="([^"]+)"[^>]*>([^<]+)<\/definedName>/g,(a,n,r)=>{const mm=r.match(/^'?Simulator'?!\$([A-Z]+)\$(\d+)(?::\$([A-Z]+)\$(\d+))?$/);if(mm)nm[n]={col:mm[1],row:+mm[2]};return a;});
   let sh=await zip.file('xl/worksheets/sheet1.xml').async('string');
-  const api={set:(n,v)=>{if(!nm[n])throw new Error('Nama '+n+' tidak ada di template');sh=xlSetCell(sh,nm[n].col+nm[n].row,v)},
+  const api={trySet:(n,v)=>{if(!nm[n])return false;sh=xlSetCell(sh,nm[n].col+nm[n].row,v);return true},set:(n,v)=>{if(!nm[n])throw new Error('Nama '+n+' tidak ada di template');sh=xlSetCell(sh,nm[n].col+nm[n].row,v)},
              setIdx:(n,i,v)=>{if(!nm[n])throw new Error('Nama '+n+' tidak ada di template');sh=xlSetCell(sh,nm[n].col+(nm[n].row+i),v)}};
   fill(api);
   zip.file('xl/worksheets/sheet1.xml',sh);
@@ -2294,7 +2311,9 @@ async function xlBuild(url,fill,fileName){
 
 const XL_WEATHER=['Gelap total / Badai (0 PSH)','Mendung 100% / Hujan (1,5 PSH)','Mendung 50% (3,0 PSH)','Cerah 100% / Musim kemarau (4,5 PSH)'];
 const XL_STOP={full:'Full 100%',pct:'SOC custom %',cont:'Sampai akhir shift'};
+let xlNote='';
 async function exportXlsx(){
+  xlNote='';
   const btn=document.getElementById('btnXls');const lbl=btn.querySelector('span');const label=lbl.textContent;
   try{
     btn.disabled=true;lbl.textContent='…';
@@ -2319,7 +2338,9 @@ async function exportXlsx(){
       x.set('inPath',g('gensetPathMode').value==='bypass'?'Bypass':'Semua via inverter');
       x.set('inBatOvr',isAdvisor?0:Math.round(num('gidaBatOverride')));
       x.set('inFuel',Math.round(num('fuelPrice')/rate));
+      if(!x.trySet('inGenLph',getGensetLph()) && Math.abs(getGensetLph()-16/12)>1e-6) xlNote='Catatan: template Excel belum punya sel konsumsi genset, jadi file Excel ini masih memakai 1,333 L/jam, bukan '+getGensetLph()+' L/jam di layar. Perbarui template agar Excel ikut.';
     },'GIDA_Simulator_'+model+'_'+g('opYears').value+'y.xlsx');
+    if(xlNote) alert(xlNote);
   }catch(e){if(e.message!=='Dibatalkan.')alert('Export Excel gagal: '+e.message)}
   finally{btn.disabled=false;lbl.textContent=label}
 }
@@ -2381,7 +2402,7 @@ async function exportXlsx(){
         sTxt: ["Sekitar {n} siklus charge/discharge dalam {y} tahun. Rating umum baterai LFP: 3.000 sampai 6.000 siklus.", "About {n} charge/discharge cycles in {y} years; typical LFP battery rating is 3,000 to 6,000 cycles.", "{y} 年内约 {n} 次充放电循环；常见磷酸铁锂电池额定 3,000 至 6,000 次循环。", "Unos {n} ciclos de carga/descarga en {y} años; la clasificación habitual de baterías LFP es de 3.000 a 6.000 ciclos."],
         yr: ["Th {y}", "Yr {y}", "第{y}年", "Año {y}"],
         aTitle: ["Asumsi simulasi", "Simulation assumptions", "模拟假设", "Supuestos de la simulación"],
-        a1: ["GIDA {m}: PV {pv} Wp, baterai {bt} kWh, genset 5 kW", "GIDA {m}: PV {pv} Wp, battery {bt} kWh, 5 kW genset", "GIDA {m}：光伏 {pv} Wp，电池 {bt} kWh，发电机 5 kW", "GIDA {m}: FV {pv} Wp, batería {bt} kWh, generador 5 kW"],
+        a1: ["GIDA {m}: PV {pv} Wp, baterai {bt} kWh, genset 5 kW ({l} L per jam)", "GIDA {m}: PV {pv} Wp, battery {bt} kWh, 5 kW genset ({l} L per hour)", "GIDA {m}：光伏 {pv} Wp，电池 {bt} kWh，发电机 5 kW（{l} 升/小时）", "GIDA {m}: FV {pv} Wp, batería {bt} kWh, generador 5 kW ({l} L/h)"],
         a2: ["Beban lampu {w} W, {h} jam per malam, {d} hari per tahun", "Lamp load {w} W, {h} hours per night, {d} days per year", "灯具负载 {w} W，每晚 {h} 小时，每年 {d} 天", "Carga de lámpara {w} W, {h} horas por noche, {d} días al año"],
         a3: ["Cuaca: {psh} jam matahari efektif per hari", "Dominant weather {psh} effective sun hours (PSH)", "主要天气：{psh} 有效日照小时 (PSH)", "Clima dominante {psh} horas sol efectivas (PSH)"],
         a4: ["Genset menyala saat baterai {a}%, {s}; pengisian siang hari {pc}", "Genset starts at battery {a}%, {s}; daytime precharge {pc}", "电池降至 {a}% 时发电机启动，{s}；白天预充电{pc}", "El generador arranca con batería al {a}%, {s}; precarga diurna {pc}"],
@@ -2407,6 +2428,7 @@ async function exportXlsx(){
         pbSubOld: ["Modal GIDA kembali lewat penghematan solar", "GIDA investment recovered through fuel savings", "GIDA 投资通过燃油节省收回", "La inversión en GIDA se recupera con el ahorro de combustible"],
         pbSubNew: ["Dihitung dari selisih CAPEX + solar vs diesel baru", "Based on CAPEX + fuel difference vs a new diesel unit", "按 CAPEX + 燃油差额对比新柴油机计算", "Según la diferencia de CAPEX + combustible frente a un diésel nuevo"],
         dlgTitle: ["Ringkasan PDF", "Summary PDF", "摘要 PDF", "Resumen PDF"],
+        dlgPrint: ["Cetak / Simpan PDF", "Print / Save PDF", "打印 / 保存为 PDF", "Imprimir / Guardar PDF"],
         dlgName: ["Nama customer (boleh dikosongkan)", "Customer name (optional)", "客户名称（可留空）", "Nombre del cliente (opcional)"],
         dlgLang: ["Bahasa laporan", "Report language", "报告语言", "Idioma del informe"],
         dlgCur: ["Mata uang mengikuti pilihan di aplikasi: {c}", "Currency follows the app setting: {c}", "货币沿用应用设置：{c}", "La moneda sigue la configuración de la app: {c}"],
@@ -2559,7 +2581,7 @@ ${srChartSvg(R)}
         const pvp = Math.round(R.pvShare * 100);
         const stopTxt = R.stopMode === 'cont' ? srT('sCont') : (R.stopMode === 'pct' ? srT('sPct', { p: R.stopPct }) : srT('sFull'));
         const assum = [
-            srT('a1', { m: R.model, pv: srNumLoc(R.pvWp), bt: srNumLoc(R.batWh / 1000, 1) }),
+            srT('a1', { m: R.model, pv: srNumLoc(R.pvWp), bt: srNumLoc(R.batWh / 1000, 1), l: srNumLoc(R.gensetLph, 2) }),
             srT('a2', { w: srNumLoc(R.lampW), h: R.nightH, d: R.workDays }),
             srT('a3', { psh: srNumLoc(R.psh, 1) }),
             srT('a4', { a: 100 - R.dod, s: stopTxt, pc: srT(R.precharge ? 'pcOn' : 'pcOff') }),
@@ -2612,15 +2634,44 @@ ${head(srEsc(srT('p2Head')))}
         if (!window.LAST_REPORT) { alert('Run the calculation first.'); return; }
         srAskOptions((cust, lang) => {
             srLang = lang;
+            // Cara utama: laporan dibuka di tab baru yang isinya HANYA laporan, lalu dicetak dari sana.
+            // Ini tidak bergantung pada waktu/event cetak, jadi sama di komputer dan HP.
+            // window.open harus dipanggil langsung dari klik tombol OK (belum ada jeda), supaya tidak diblokir.
+            let w = null;
+            try { w = window.open('', '_blank'); } catch (e) { w = null; }
+            const bodyHtml = buildSummaryHtml(cust);
+            if (w) {
+                const ttl = 'GIDA_Summary_' + (cust ? cust.replace(/[^\w\-]+/g, '_') : 'Report');
+                const btnTxt = srEsc(srT('dlgPrint'));
+                w.document.open();
+                w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + srEsc(ttl) + '</title>'
+                    + '<meta name="viewport" content="width=794">'
+                    + '<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">'
+                    + '<style>@page{size:A4;margin:0}html,body{margin:0;padding:0;background:#e9edf2;-webkit-print-color-adjust:exact;print-color-adjust:exact}'
+                    + '.sr-page{width:794px;height:1123px;box-sizing:border-box;padding:36px 44px 28px;display:flex;flex-direction:column;gap:13px;background:#fff;overflow:hidden;margin:0 auto 14px}'
+                    + '.bar{position:fixed;top:8px;right:8px;z-index:9}.bar button{padding:10px 16px;font-size:15px;border:0;border-radius:8px;background:#f97316;color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
+                    + '@media print{html,body{background:#fff}.bar{display:none}.sr-page{margin:0;page-break-after:always;break-after:page}.sr-page:last-child{page-break-after:auto;break-after:auto}}</style></head><body>'
+                    + '<div class="bar"><button onclick="window.print()">' + btnTxt + '</button></div>' + bodyHtml
+                    + '<script>window.addEventListener("load",function(){var go=function(){setTimeout(function(){window.print()},300)};if(document.fonts&&document.fonts.ready){document.fonts.ready.then(go)}else{go()}});<\/script></body></html>');
+                w.document.close();
+                return;
+            }
+            // Cadangan bila tab baru diblokir browser: cetak halaman ini dengan laporan di atasnya.
+            if (window.srCleanup && document.body.classList.contains('print-summary')) window.srCleanup();
             let el = document.getElementById('sumReport');
             if (!el) { el = document.createElement('div'); el.id = 'sumReport'; document.body.appendChild(el); }
-            el.innerHTML = buildSummaryHtml(cust);
+            el.innerHTML = bodyHtml;
             let st = document.getElementById('srPageStyle');
             if (!st) { st = document.createElement('style'); st.id = 'srPageStyle'; document.head.appendChild(st); }
             st.textContent = '@page{size:A4;margin:0}';
             document.body.classList.add('print-summary');
-            const done = () => { document.body.classList.remove('print-summary'); const s = document.getElementById('srPageStyle'); if (s) s.textContent = ''; el.innerHTML = ''; window.removeEventListener('afterprint', done); };
-            window.addEventListener('afterprint', done);
+            const done = () => { document.body.classList.remove('print-summary'); const s = document.getElementById('srPageStyle'); if (s) s.textContent = ''; el.innerHTML = ''; window.removeEventListener('afterprint', done); ['pointerdown', 'keydown'].forEach(ev => window.removeEventListener(ev, done, true)); };
+            window.srCleanup = done;
+            if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+                setTimeout(() => ['pointerdown', 'keydown'].forEach(ev => window.addEventListener(ev, done, { capture: true, once: true })), 1500);
+            } else {
+                window.addEventListener('afterprint', done);
+            }
             setTimeout(() => window.print(), 250);
         });
     }
@@ -2628,6 +2679,7 @@ ${head(srEsc(srT('p2Head')))}
     // Tombol Print: bekukan grafik dulu (tidak bergantung pada event beforeprint, yang tidak
     // dipicu di sebagian browser/panel), lalu cetak. Event afterprint memulihkan grafik.
     function printReport() {
+        if (window.srCleanup && document.body.classList.contains('print-summary')) window.srCleanup();
         try {
             if (printFrozen) { document.querySelectorAll('img.print-img').forEach(i => i.remove()); printFrozen = false; }   // buang sisa gambar lama
             freezeChartsForPrint();
